@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Loan Form</title>
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Employee Loan Form</h1>
+
+    <form id="loanForm" onsubmit="return calculateLoan()">
+        <label for="employeeId">Employee ID:</label>
+        <input type="text" id="employeeId" name="employeeId" required><br>
+        <br>
+
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br>
+        <br>
+
+        <label for="address">Address:</label>
+        <textarea id="address" name="address" rows="4" required></textarea><br>
+        <br>
+
+        <label for="designation">Designation:</label>
+        <input type="text" id="designation" name="designation" required><br>
+        <br>
+
+        <label for="loanAmount">Loan Amount:</label>
+        <input type="number" id="loanAmount" name="loanAmount" required>
+        <div id="displayLoanAmount"></div><br>
+
+        <label for="dateOfLoan">Date of Loan Taken:</label>
+        <input type="date" id="dateOfLoan" name="dateOfLoan" required><br>
+        <br>
+
+        <label for="interest">Interest:</label>
+        <input type="number" id="interest" name="interest" required>
+        <div id="displayInterest"></div><br>
+
+        <label for="maturityDate">Maturity Date:</label>
+        <input type="date" id="maturityDate" name="maturityDate" required><br>
+        <br>
+
+        <input type="submit" value="Calculate">
+        <br>
+    </form>
+
+    <script>
+        function calculateLoan() {
+            var employeeId = document.getElementById('employeeId').value;
+            var name = document.getElementById('name').value;
+            var address = document.getElementById('address').value;
+            var designation = document.getElementById('designation').value;
+            var dateOfLoan = document.getElementById('dateOfLoan').value;
+            var maturityDate = document.getElementById('maturityDate').value;
+
+            // Validate employee ID
+            if (employeeId.length < 4 || employeeId.charAt(0) !== 'E') {
+                alert('Employee ID must be at least 4 characters long and start with the letter "E"');
+                return false;
+            }
+
+            
+            var loanAmount = 0;
+            var interest = 0;
+
+            switch (designation.toUpperCase()) {
+                case 'MANAGER':
+                    loanAmount = 5000;
+                    interest = 0.1;
+                    break;
+                case 'ENGINEER':
+                    loanAmount = 3000;
+                    interest = 0.05;
+                    break;
+                case 'SALES':
+                    loanAmount = 4000;
+                    interest = 0.08;
+                    break;
+                default:
+                    alert('Invalid designation. Please check the designation and try again.');
+                    return false;
+            }
+
+            // Display the results
+            document.getElementById('displayLoanAmount').innerHTML = '<strong>Loan Amount:</strong> $' + loanAmount.toFixed(2);
+            document.getElementById('displayInterest').innerHTML = '<strong>Interest:</strong> ' + (interest * 100) + '%';
+
+            return false; 
+        }
+    </script>
+
+</body>
+</html>
